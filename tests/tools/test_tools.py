@@ -1,4 +1,4 @@
-from agent.tools.registry import ToolResult, get_complaint
+from agent.tools.registry import ToolResult, get_scenario
 
 def test_toolresult_success():
     result = ToolResult(success=True, tool_name="test", data={"key": "value"})
@@ -10,7 +10,8 @@ def test_toolresult_failure():
     assert result.success is False
     assert result.error["message"] == "failed"
 
-def test_mock_get_complaint():
-    res = get_complaint("CASE-001")
-    assert res.success is True
-    assert res.data["case_id"] == "CASE-001"
+def test_mock_get_scenario():
+    # Will fail to find UNKNOWN, but shouldn't crash
+    res = get_scenario("UNKNOWN")
+    assert res.success is False
+

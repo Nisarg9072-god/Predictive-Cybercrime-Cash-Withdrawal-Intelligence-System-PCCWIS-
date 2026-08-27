@@ -27,10 +27,20 @@ htmlcov/
 logs/
 *.log
 
-# Data
+# Data and Databases
+*.db
+*.sqlite
+*.sqlite3
 data/synthetic/*.csv
 data/test_cases/*.csv
 !data/synthetic/complaints.json
+
+# Large datasets and operational data
+data/synthetic/CYBER_INTERCEPT_FULL_DATASET/
+data/agent/
+
+# Generated Reports
+reports/
 
 # Build and Distribution
 dist/

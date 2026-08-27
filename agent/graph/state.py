@@ -1,24 +1,40 @@
-from typing import TypedDict, List, Dict, Any, Optional
+from typing import TypedDict, List, Dict, Any, Optional, Annotated
+import operator
 
 class InvestigationState(TypedDict):
     """
-    Shared contract for the LangGraph state.
-    Every developer must use this structure.
-    Do not add or remove fields without team consensus.
+    State for dynamic agentic investigation.
     """
-    case_id: str
-    complaint: Dict[str, Any]
-    current_account: Optional[str]
-    investigated_accounts: List[str]
-    transaction_paths: List[Dict[str, Any]]
-    suspicious_accounts: List[str]
-    withdrawal_candidates: List[str]
-    predictions: List[Dict[str, Any]]
-    evidence: List[Dict[str, Any]]
-    risk_score: Optional[float]
+    session_id: Optional[str]
+    investigation_id: Optional[str]
+    scenario_id: str
+    objective: str
+    current_subject: Optional[str]
+    subjects_discovered: Annotated[List[str], operator.add]
+    
+    # DB Entity Caches (sanitized models stored as dicts)
+    accounts: Annotated[List[str], operator.add]
+    transactions: Annotated[List[Dict[str, Any]], operator.add]
+    transaction_chains: Annotated[List[Dict[str, Any]], operator.add]
+    profiles: Annotated[List[Dict[str, Any]], operator.add]
+    atms: Annotated[List[Dict[str, Any]], operator.add]
+    
+    # Dynamic Agent State
+    observations: Annotated[List[Dict[str, Any]], operator.add]
+    hypotheses: Annotated[List[Dict[str, Any]], operator.add]
+    evidence: Annotated[List[Dict[str, Any]], operator.add]
+    findings: Annotated[List[Dict[str, Any]], operator.add]
+    
+    # Execution Tracking
+    completed_tools: Annotated[List[str], operator.add]
+    pending_actions: List[str]  # Overwrite each iteration
+    tool_args: Dict[str, Any]   # Overwrite each iteration
+    tool_history: Annotated[List[Dict[str, Any]], operator.add]
+    decision_history: Annotated[List[Dict[str, Any]], operator.add]
+    
+    iteration: int
+    max_iterations: int
     confidence: Optional[float]
-    tool_calls: List[Dict[str, Any]]
-    alerts: List[Dict[str, Any]]
-    errors: List[Dict[str, Any]]
-    investigation_status: str
-    iteration_count: int
+    risk_score: Optional[float]
+    status: str
+    stop_reason: Optional[str]

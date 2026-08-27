@@ -1,37 +1,87 @@
 from .graph.graph import get_compiled_graph
+import uuid
+import datetime
+from database.repository import OperationalRepository, DatasetRepository
+from database.queries import INSERT_SESSION, UPDATE_SESSION, INSERT_INVESTIGATION, UPDATE_INVESTIGATION
 
 class PredictiveCybercrimeAgent:
     def __init__(self):
         self.graph = get_compiled_graph()
 
-    def run(self, case_id: str):
+    def run(
+        self,
+        scenario_id: str,
+        max_iterations: int = 15,
+        max_tool_calls: int = 20,
+        victim_name: str = "",
+        victim_account_id: str = None,
+    ):
+        # 1. Load scenario
+        scenario = DatasetRepository.get_scenario(scenario_id)
+        if not scenario:
+            raise ValueError(f"Scenario {scenario_id} not found in database.")
+            
+        session_id = str(uuid.uuid4())
+        investigation_id = str(uuid.uuid4())
+        now = datetime.datetime.now(datetime.UTC).isoformat() + "Z"
+        
+        # Log to Operational DB
+        OperationalRepository.execute_insert(
+            INSERT_SESSION, 
+            (session_id, now, "SCENARIO", scenario_id, "STARTED", now)
+        )
+        OperationalRepository.execute_insert(
+            INSERT_INVESTIGATION,
+            (investigation_id, session_id, "SCENARIO", scenario_id, scenario.description, "STARTED", now)
+        )
+
         initial_state = {
-            "case_id": case_id,
-            "complaint": {},
-            "current_account": None,
-            "investigated_accounts": [],
-            "transaction_paths": [],
-            "suspicious_accounts": [],
-            "withdrawal_candidates": [],
-            "predictions": [],
+            "session_id": session_id,
+            "investigation_id": investigation_id,
+            "scenario_id": scenario_id,
+            "objective": f"Investigate {scenario_id} and determine laundering path and cash withdrawal risk.",
+            "victim_name": victim_name or "",
+            "victim_account_id": victim_account_id or "",
+            "current_subject": victim_account_id if victim_account_id else None,
+            "subjects_discovered": [],
+            "accounts": [victim_account_id] if victim_account_id else [],
+            "transactions": [],
+            "transaction_chains": [],
+            "profiles": [],
+            "atms": [],
+            "observations": [],
+            "hypotheses": [],
             "evidence": [],
-            "risk_score": None,
+            "findings": [],
+            "completed_tools": [],
+            "pending_actions": [],
+            "tool_args": {},
+            "tool_history": [],
+            "decision_history": [],
+            "iteration": 1,
+            "max_iterations": max_iterations,
             "confidence": None,
-            "tool_calls": [],
-            "alerts": [],
-            "errors": [],
-            "investigation_status": "INITIALIZED",
-            "iteration_count": 0
+            "risk_score": None,
+            "status": "INITIALIZED",
+            "stop_reason": None
         }
         
-        # In a real environment, you might use an async runtime, limit recursion depth etc.
-        config = {"recursion_limit": 20}
+        config = {"recursion_limit": max_tool_calls * 2}
         
-        print(f"[AGENT] Starting investigation for {case_id}...")
-        for event in self.graph.stream(initial_state, config=config):
-            for k, v in event.items():
-                pass # The nodes will print out messages, or we could handle streamed state here
-        
-        # We can fetch the final state from the agent memory if we configured a checkpointer,
-        # but for this mock sync loop we just let it finish.
-        print("[REPORT] Investigation completed.")
+        print(f"[AGENT] Starting investigation for {scenario_id}...")
+        try:
+            final_state = None
+            for event in self.graph.stream(initial_state, config=config):
+                for k, v in event.items():
+                    final_state = v
+            
+            end_now = datetime.datetime.now(datetime.UTC).isoformat() + "Z"
+            OperationalRepository.execute_update(UPDATE_SESSION, (end_now, "COMPLETED", 0, 0, None, session_id))
+            OperationalRepository.execute_update(UPDATE_INVESTIGATION, (end_now, "COMPLETED", investigation_id))
+            print("\n[REPORT] Investigation completed successfully.")
+            return final_state
+        except Exception as e:
+            end_now = datetime.datetime.now(datetime.UTC).isoformat() + "Z"
+            OperationalRepository.execute_update(UPDATE_SESSION, (end_now, "FAILED", 0, 0, str(e), session_id))
+            OperationalRepository.execute_update(UPDATE_INVESTIGATION, (end_now, "FAILED", investigation_id))
+            raise

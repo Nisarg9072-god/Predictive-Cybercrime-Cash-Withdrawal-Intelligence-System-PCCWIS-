@@ -30,3 +30,6 @@ dev = [
 pythonpath = [
   "."
 ]
+markers = [
+  "performance: performance and scalability tests",
+]
