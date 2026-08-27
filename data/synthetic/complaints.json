@@ -1,0 +1,10 @@
+[
+  {
+    "case_id": "CASE-001",
+    "victim_account": "V001",
+    "amount": 80000,
+    "timestamp": "2023-10-25T14:30:00Z",
+    "location": "Ahmedabad",
+    "description": "Victim received a call from someone claiming to be bank staff and transferred funds."
+  }
+]
