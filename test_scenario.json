@@ -1,1 +1,0 @@
-{"success": false, "tool_name": "get_scenario_raw", "data": null, "error": {"message": "Could not decode to UTF-8 column 'data_json' with text '{\"scenario_id\": \"SC\ufffd\u0001{'"}, "metadata": {}}
