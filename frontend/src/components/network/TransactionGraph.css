@@ -1,0 +1,57 @@
+/* Custom ReactFlow styles for Dark Mode */
+.react-flow__node {
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 10px 15px;
+  color: #fff;
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.react-flow__node:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.node-safe {
+  background-color: var(--status-safe-bg);
+  border-color: var(--status-safe);
+}
+
+.node-warning {
+  background-color: var(--status-warning-bg);
+  border-color: var(--status-warning);
+}
+
+.node-critical {
+  background-color: var(--status-critical-bg);
+  border-color: var(--status-critical);
+}
+
+.react-flow__edge-path {
+  stroke: var(--text-muted);
+  stroke-width: 2;
+}
+
+.react-flow__edge-text {
+  fill: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.react-flow__edge-textbg {
+  fill: var(--bg-primary);
+}
+
+.react-flow__controls button {
+  background-color: var(--bg-panel);
+  border-bottom: 1px solid var(--border-subtle);
+  fill: var(--text-primary);
+}
+
+.react-flow__controls button:hover {
+  background-color: var(--bg-panel-hover);
+}

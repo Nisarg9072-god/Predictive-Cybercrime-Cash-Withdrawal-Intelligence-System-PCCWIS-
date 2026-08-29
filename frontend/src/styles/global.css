@@ -1,0 +1,107 @@
+@import './variables.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  font-size: 14px; /* Slightly smaller base font for density */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 1px solid var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Custom Scrollbar - Operational style */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Utility Classes */
+.text-critical { color: var(--status-critical); }
+.text-warning { color: var(--status-warning); }
+.text-safe { color: var(--status-safe); }
+.text-ai { color: var(--ai-color); }
+.text-primary { color: var(--primary-color); }
+.text-muted { color: var(--text-muted); }
+
+.bg-panel { 
+  background-color: var(--bg-panel); 
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.bg-navy-panel {
+  background-color: var(--bg-navy-panel);
+  color: var(--text-navy-primary);
+  border: 1px solid var(--border-navy);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+}
+
+.bg-navy-panel .text-muted {
+  color: var(--text-navy-muted);
+}
+
+.bg-navy-panel .border-subtle {
+  border-color: var(--border-navy);
+}
+
+.text-navy-primary { color: var(--text-navy-primary); }
+.text-navy-muted { color: var(--text-navy-muted); }

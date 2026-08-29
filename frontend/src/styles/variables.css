@@ -1,0 +1,77 @@
+:root {
+  /* Spacing Scale (in rems for accessibility, base 16px) */
+  --space-1: 0.25rem;  /* 4px  */
+  --space-2: 0.5rem;   /* 8px  */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+
+  /* Base Palette: Ice Blue / Light Mode (Operational Light Mode) */
+  --bg-primary: #F7FBFF; 
+  --bg-secondary: #F0F7FC; 
+  --bg-tertiary: #E8F3FA;
+  
+  /* Panels */
+  --bg-panel: #FFFFFF;
+  --bg-panel-hover: #F0F7FC;
+
+  /* Deep Navy Cyber/AI Panels */
+  --bg-navy-panel: #0B1F33;
+  --bg-navy-panel-hover: #0F2747;
+  --text-navy-primary: #FFFFFF;
+  --text-navy-muted: #94A3B8;
+
+  /* Borders & Dividers */
+  --border-subtle: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --border-navy: #132F4C;
+
+  /* Typography */
+  --text-primary: #081A2F;
+  --text-secondary: #1E293B;
+  --text-muted: #64748B;
+
+  /* Primary Palette: Professional Blue */
+  --primary-color: #2563EB;
+  --primary-hover: #1D4ED8;
+  --primary-active: #1E40AF;
+  --primary-transparent: rgba(37, 99, 235, 0.15);
+
+  /* Cyan Accent for Intelligence Highlights */
+  --accent-cyan: #06B6D4;
+
+  /* Status Colors */
+  --status-critical: #EF4444; /* Controlled Red */
+  --status-critical-bg: rgba(239, 68, 68, 0.15);
+  
+  --status-warning: #F59E0B; /* Amber/Orange */
+  --status-warning-bg: rgba(245, 158, 11, 0.15);
+  
+  --status-safe: #10B981; /* Professional Green */
+  --status-safe-bg: rgba(16, 185, 129, 0.15);
+
+  /* AI / Intelligence: Cyan/Blue */
+  --ai-color: #06B6D4;
+  --ai-hover: #0891B2;
+  --ai-bg: rgba(6, 182, 212, 0.15);
+
+  /* Shadow & Depth - Soft Professional Blue-Gray */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 39, 71, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 39, 71, 0.1), 0 2px 4px -1px rgba(15, 39, 71, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 39, 71, 0.1), 0 4px 6px -2px rgba(15, 39, 71, 0.05);
+
+  /* Border Radius - Kept very small for professional look */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* Fonts */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', Consolas, monospace;
+  --font-heading: 'Inter', sans-serif;
+}
+

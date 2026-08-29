@@ -1,0 +1,13 @@
+# Ignore env file
+.env
+
+# Ignore SQLite data and logs
+data/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite3
+
+# Ignore PyCache
+__pycache__/
+*.pyc
